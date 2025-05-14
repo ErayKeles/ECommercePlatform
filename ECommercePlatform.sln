@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthUserService", "AuthUserService", "{FE1E2308-0A49-438B-B08C-EF75A82F780D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductService", "ProductService", "{9DCFA8CD-355C-4B5F-98A9-42A455048B52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderPaymentService", "OrderPaymentService", "{CF76BB51-F105-4138-92AF-82023D9C465A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationService", "NotificationService", "{F6D42B71-E1F9-45F8-AAD4-7C70B9B0B22E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{9F8587CE-04EB-4260-9E4E-EAFF3DC7CBE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Çözüm Öğeleri", "Çözüm Öğeleri", "{AC80F682-3D55-C8F8-4895-A4A9EDD49434}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FE1E2308-0A49-438B-B08C-EF75A82F780D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9DCFA8CD-355C-4B5F-98A9-42A455048B52} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{CF76BB51-F105-4138-92AF-82023D9C465A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{F6D42B71-E1F9-45F8-AAD4-7C70B9B0B22E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9F8587CE-04EB-4260-9E4E-EAFF3DC7CBE1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FC865636-A210-4914-AC13-ED9550B21268}
+	EndGlobalSection
+EndGlobal
