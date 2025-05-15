@@ -1,15 +1,17 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Servisleri ekle
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// MongoDB & RabbitMQ ayarlarý buraya
+// builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDb"));
+// builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
+// builder.Services.AddSingleton<IEventPublisher, RabbitMqPublisher>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -17,9 +19,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

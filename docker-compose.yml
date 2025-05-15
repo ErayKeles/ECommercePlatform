@@ -1,0 +1,142 @@
+﻿version: '3.9'
+
+services:
+
+  # Microsoft SQL Server - Auth için
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Eraykeles.67"
+      ACCEPT_EULA: "Y"
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+  # MySQL - Product için
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Eraykeles.67
+      MYSQL_DATABASE: productdb
+      MYSQL_USER: ecommerce
+      MYSQL_PASSWORD: Eraykeles.67
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+  # MongoDB - Order için
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+  # Redis - AuthService JWT Refresh Token
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+  # RabbitMQ - Sipariş Bildirimi için
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: eray
+      RABBITMQ_DEFAULT_PASS: Eraykeles.67
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+  # API Gateway - Reverse Proxy
+  apigateway:
+    build:
+      context: ./ApiGateway/ApiGateway
+      dockerfile: Dockerfile
+    container_name: apigateway
+    ports:
+      - "5000:80"
+    depends_on:
+      - authservice
+      - productservice
+      - orderservice
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+  # Auth Service - Kullanıcı kimlik doğrulama
+  authservice:
+    build:
+      context: ./AuthUserService/AuthUserService.API
+      dockerfile: Dockerfile
+    container_name: authservice
+    ports:
+      - "5001:80"
+    depends_on:
+      - mssql
+      - redis
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+  #  Product Service - Ürün işlemleri
+  productservice:
+    build:
+      context: ./ProductService/ProductService.API
+      dockerfile: Dockerfile
+    container_name: productservice
+    ports:
+      - "5002:80"
+    depends_on:
+      - mysql
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+  # Order Service - Sipariş işlemleri (payment içermez)
+  orderservice:
+    build:
+      context: ./OrderPaymentService/OrderPaymentService.API
+      dockerfile: Dockerfile
+    container_name: orderservice
+    ports:
+      - "5003:80"
+    depends_on:
+      - mongo
+      - rabbitmq
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+  # Notification Worker Service - RabbitMQ event listener + Mail
+  notificationservice:
+    build:
+      context: ./NotificationService
+      dockerfile: Dockerfile
+    container_name: notificationservice
+    depends_on:
+      - rabbitmq
+    networks:
+      - ecommerce-net
+    restart: unless-stopped
+
+# Ortak Ağ
+networks:
+  ecommerce-net:
+    driver: bridge

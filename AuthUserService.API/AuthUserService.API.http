@@ -1,6 +1,5 @@
-@AuthUserService.API_HostAddress = http://localhost:5206
+@AuthUserService_API_HostAddress = http://localhost:5001
 
-GET {{AuthUserService.API_HostAddress}}/weatherforecast/
+### Örnek endpoint isteði:
+GET {{AuthUserService_API_HostAddress}}/api/auth/login
 Accept: application/json
-
-###
