@@ -95,7 +95,7 @@ services:
       - ecommerce-net
     restart: unless-stopped
 
-  #  Product Service - Ürün işlemleri
+  # Product Service - Ürün işlemleri
   productservice:
     build:
       context: ./ProductService/ProductService.API
