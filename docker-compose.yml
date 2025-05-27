@@ -15,7 +15,7 @@ services:
       - ecommerce-net
     restart: unless-stopped
 
-  # MySQL - Product için
+  # MySQL - Product için.
   mysql:
     image: mysql:8.0
     container_name: mysql
